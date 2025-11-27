@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Bangun Ruang Level 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 5px solid #f5576c;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            color: #d63447;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .question {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #f093fb;
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.2);
+            transition: all 0.3s;
+        }
+
+        .question:hover {
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .question h4 {
+            color: #d63447;
+            font-size: 1.1em;
+            flex: 1;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 18px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            font-size: 1.05em;
+        }
+
+        .option:hover {
+            border-color: #f093fb;
+            background: linear-gradient(135deg, #fff0f6 0%, #ffe8f0 100%);
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            border-color: #f093fb;
+            background: linear-gradient(135deg, #fff0f6 0%, #ffe8f0 100%);
+            border-width: 3px;
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+
+        .option.correct .option-letter {
+            background: #4CAF50;
+        }
+
+        .option.wrong {
+            border-color: #f44336;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        }
+
+        .option.wrong .option-letter {
+            background: #f44336;
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 10px;
+            border-left: 5px solid #2196F3;
+            animation: slideDown 0.5s;
+        }
+
+        @keyframes slideDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .explanation-title {
+            font-weight: bold;
+            color: #1976D2;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+        }
+
+        .explanation-title::before {
+            content: "💡";
+            margin-right: 8px;
+            font-size: 1.3em;
+        }
+
+        .explanation-text {
+            color: #0d47a1;
+            line-height: 1.6;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 16px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(245, 87, 108, 0.5);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .button.secondary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .button.secondary:hover {
+            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.5);
+        }
+
+        .result {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(245, 87, 108, 0.4);
+            animation: fadeIn 0.6s;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result h3 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .score-display {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 25px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .result p {
+            font-size: 1.4em;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .tips-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #e17055;
+        }
+
+        .tips-box h4 {
+            color: #d63031;
+            margin-bottom: 10px;
+        }
+
+        .tips-box ul {
+            margin-left: 20px;
+            line-height: 1.8;
+            color: #2d3436;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.6em;
+            }
+
+            .question-text {
+                font-size: 1em;
+            }
+
+            .button {
+                padding: 14px 25px;
+                font-size: 1em;
+            }
+
+            .score-display {
+                font-size: 3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Latihan Bangun Ruang - Level 2</h1>
+            <p>Matematika SMP - Soal Aplikatif & Analisis</p>
+            <div class="level-badge">⭐ LEVEL MENENGAH ⭐</div>
+        </header>
+
+        <div class="content">
+            <div class="info-box">
+                <h3>📋 Informasi Level 2</h3>
+                <ul>
+                    <li>Soal dengan konteks kehidupan nyata</li>
+                    <li>Melibatkan konversi satuan dan persentase</li>
+                    <li>Perhitungan dengan pecahan</li>
+                    <li>Analisis perbandingan antar bangun ruang</li>
+                    <li>Memerlukan pemahaman konsep yang lebih mendalam</li>
+                </ul>
+            </div>
+
+            <div id="questions-container"></div>
+            
+            <div class="buttons-container">
+                <button class="button" onclick="checkAnswers()">✓ Periksa Jawaban</button>
+                <button class="button secondary" onclick="resetQuiz()">↻ Ulangi Kuis</button>
+            </div>
+
+            <div id="result-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Sebuah tangki air berbentuk tabung dengan diameter 140 cm dan tinggi 2 m. Jika π = 22/7, berapa liter air yang dapat ditampung tangki tersebut?",
+                hint: "1 liter = 1.000 cm³, jangan lupa konversi satuan tinggi!",
+                options: ["308 liter", "280 liter", "350 liter", "400 liter"],
+                correct: 0,
+                explanation: "Diameter = 140 cm → jari-jari (r) = 70 cm<br>Tinggi = 2 m = 200 cm<br>Volume = πr²t = (22/7) × 70² × 200<br>= (22/7) × 4.900 × 200<br>= 308.000 cm³<br>= 308 liter"
+            },
+            {
+                question: "Sebuah kotak kado berbentuk kubus dengan panjang sisi 20 cm dibungkus dengan kertas kado. Jika kertas kado yang dibutuhkan 10% lebih banyak dari luas permukaan kotak untuk lipatan, maka luas kertas kado yang digunakan adalah...",
+                hint: "Hitung luas permukaan kubus terlebih dahulu, lalu tambahkan 10%",
+                options: ["2.640 cm²", "2.400 cm²", "2.800 cm²", "2.200 cm²"],
+                correct: 0,
+                explanation: "Luas permukaan kubus = 6 × s²<br>= 6 × 20²<br>= 6 × 400<br>= 2.400 cm²<br><br>Kertas kado dibutuhkan 10% lebih banyak:<br>= 2.400 + (10% × 2.400)<br>= 2.400 + 240<br>= 2.640 cm²"
+            },
+            {
+                question: "Sebuah bak mandi berbentuk balok memiliki ukuran panjang 120 cm, lebar 80 cm, dan tinggi 60 cm. Jika bak tersebut diisi air sampai ¾ bagian, maka volume air dalam bak adalah...",
+                hint: "Hitung volume penuh dulu, lalu kalikan dengan ¾",
+                options: ["432 liter", "480 liter", "576 liter", "360 liter"],
+                correct: 0,
+                explanation: "Volume balok = p × l × t<br>= 120 × 80 × 60<br>= 576.000 cm³<br><br>Volume air (¾ bagian):<br>= ¾ × 576.000<br>= 432.000 cm³<br>= 432 liter"
+            },
+            {
+                question: "Perbandingan jari-jari dua bola adalah 2 : 3. Jika volume bola kecil adalah 288 cm³, maka volume bola besar adalah...",
+                hint: "Perbandingan volume = (perbandingan jari-jari)³",
+                options: ["972 cm³", "864 cm³", "1.024 cm³", "756 cm³"],
+                correct: 0,
+                explanation: "Perbandingan jari-jari = 2 : 3<br>Perbandingan volume = 2³ : 3³ = 8 : 27<br><br>Jika V₁ = 288 cm³, maka:<br>V₁ : V₂ = 8 : 27<br>288 : V₂ = 8 : 27<br>V₂ = (27 × 288) ÷ 8<br>V₂ = 7.776 ÷ 8<br>V₂ = 972 cm³"
+            },
+            {
+                question: "Sebuah kerucut dan tabung memiliki jari-jari dan tinggi yang sama yaitu 14 cm. Jika π = 22/7, maka selisih volume tabung dan kerucut adalah...",
+                hint: "Volume kerucut = ⅓ volume tabung (jika r dan t sama)",
+                options: ["5.749 cm³", "5.644 cm³", "6.160 cm³", "4.312 cm³"],
+                correct: 0,
+                explanation: "Volume tabung = πr²t<br>= (22/7) × 14² × 14<br>= (22/7) × 196 × 14<br>= 8.624 cm³<br><br>Volume kerucut = ⅓πr²t<br>= ⅓ × 8.624<br>= 2.875 cm³ (dibulatkan)<br><br>Selisih = 8.624 - 2.875<br>= 5.749 cm³"
+            }
+        ];
+
+        let userAnswers = [];
+
+        function loadQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            userAnswers = new Array(questions.length).fill(null);
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${index + 1}</div>
+                        <h4>Soal ${index + 1}</h4>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    ${q.hint ? `<div style="background: #fff9c4; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 0.95em; color: #f57f17;">💡 <strong>Petunjuk:</strong> ${q.hint}</div>` : ''}
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" onclick="selectAnswer(${index}, ${optIndex})">
+                                <div class="option-letter">${String.fromCharCode(65 + optIndex)}</div>
+                                <span>${option}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function selectAnswer(questionIndex, optionIndex) {
+            userAnswers[questionIndex] = optionIndex;
+            
+            const questionDiv = document.querySelectorAll('.question')[questionIndex];
+            const options = questionDiv.querySelectorAll('.option');
+            
+            options.forEach((opt, idx) => {
+                opt.classList.remove('selected');
+                if (idx === optionIndex) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            
+            questions.forEach((q, index) => {
+                const questionDiv = document.querySelectorAll('.question')[index];
+                const options = questionDiv.querySelectorAll('.option');
+                
+                options.forEach((opt, optIndex) => {
+                    opt.style.pointerEvents = 'none';
+                    opt.classList.remove('selected');
+                    
+                    if (optIndex === q.correct) {
+                        opt.classList.add('correct');
+                    } else if (optIndex === userAnswers[index]) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswers[index] === q.correct) {
+                    score++;
+                }
+
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.innerHTML = `
+                    <div class="explanation-title">Pembahasan</div>
+                    <div class="explanation-text">${q.explanation}</div>
+                `;
+                questionDiv.appendChild(explanation);
+            });
+
+            showResult(score);
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function showResult(score) {
+            const percentage = (score / questions.length * 100).toFixed(0);
+            let message = '';
+            let tips = '';
+            
+            if (percentage >= 90) {
+                message = '🌟 Luar Biasa! Kamu menguasai materi level 2!';
+                tips = 'Kamu sudah siap untuk soal-soal olimpiade!';
+            } else if (percentage >= 70) {
+                message = '👏 Bagus Sekali! Pemahaman kamu sangat baik!';
+                tips = 'Terus latihan soal-soal variatif untuk meningkatkan kemampuan.';
+            } else if (percentage >= 50) {
+                message = '📚 Cukup Baik! Masih ada yang perlu ditingkatkan.';
+                tips = 'Pelajari kembali konsep perbandingan dan konversi satuan.';
+            } else {
+                message = '💪 Jangan Menyerah! Terus Belajar!';
+                tips = 'Mulai dari konsep dasar, pahami rumus dengan baik, lalu coba lagi.';
+            }
+
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.innerHTML = `
+                <div class="result">
+                    <h3>🎯 Hasil Kuis Level 2</h3>
+                    <div class="score-display">${score}/${questions.length}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${percentage}%"></div>
+                    </div>
+                    <p><strong>Nilai: ${percentage}%</strong></p>
+                    <p>${message}</p>
+                    <div class="tips-box">
+                        <h4>💡 Tips untuk Kamu:</h4>
+                        <p>${tips}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetQuiz() {
+            userAnswers = [];
+            document.getElementById('result-container').innerHTML = '';
+            loadQuestions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = function() {
+            loadQuestions();
+        };
+    </script>
+</body>
+</html>
