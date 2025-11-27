@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luas dan Volume Bangun Ruang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #f5f5f5;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #e0e0e0;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bangun-ruang {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .formula {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .formula-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .question {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .option {
+            padding: 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f0ff;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #e6e6ff;
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e9;
+        }
+
+        .option.wrong {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .result h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .result p {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .info-box strong {
+            color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📐 Luas dan Volume Bangun Ruang</h1>
+            <p>Matematika SMP - Pembelajaran Interaktif</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('materi')">📚 Materi</button>
+            <button class="tab" onclick="showTab('latihan')">✏️ Latihan Soal</button>
+        </div>
+
+        <div class="content">
+            <div id="materi" class="tab-content active">
+                <div class="info-box">
+                    <strong>💡 Penting!</strong> Pelajari rumus-rumus di bawah ini dengan baik sebelum mengerjakan latihan soal.
+                </div>
+
+                <div class="bangun-ruang">
+                    <div class="card">
+                        <h3>🔲 Kubus</h3>
+                        <div class="formula">
+                            <div class="formula-title">Luas Permukaan:</div>
+                            L = 6 × s²
+                        </div>
+                        <div class="formula">
+                            <div class="formula-title">Volume:</div>
+                            V = s³
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">s = panjang sisi</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>📦 Balok</h3>
+                        <div class="formula">
+                            <div class="formula-title">Luas Permukaan:</div>
+                            L = 2(pl + pt + lt)
+                        </div>
+                        <div class="formula">
+                            <div class="formula-title">Volume:</div>
+                            V = p × l × t
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">p = panjang, l = lebar, t = tinggi</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🔺 Prisma Segitiga</h3>
+                        <div class="formula">
+                            <div class="formula-title">Luas Permukaan:</div>
+                            L = 2×La + Ka×t
+                        </div>
+                        <div class="formula">
+                            <div class="formula-title">Volume:</div>
+                            V = La × t
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">La = luas alas, Ka = keliling alas, t = tinggi</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🔻 Limas Segiempat</h3>
+                        <div class="formula">
+                            <div class="formula-title">Luas Permukaan:</div>
+                            L = La + jumlah luas sisi tegak
+                        </div>
+                        <div class="formula">
+                            <div class="formula-title">Volume:</div>
+                            V = ⅓ × La × t
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">La = luas alas, t = tinggi</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🥫 Tabung</h3>
+                        <div class="formula">
+                            <div class="formula-title">Luas Permukaan:</div>
+                            L = 2πr(r + t)
+                        </div>
+                        <div class="formula">
+                            <div class="formula-title">Volume:</div>
+                            V = πr²t
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">r = jari-jari, t = tinggi, π ≈ 3,14 atau 22/7</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🍦 Kerucut</h3>
+                        <div class="formula">
+                            <div class="formula-title">Luas Permukaan:</div>
+                            L = πr(r + s)
+                        </div>
+                        <div class="formula">
+                            <div class="formula-title">Volume:</div>
+                            V = ⅓πr²t
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">r = jari-jari, t = tinggi, s = garis pelukis</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>⚽ Bola</h3>
+                        <div class="formula">
+                            <div class="formula-title">Luas Permukaan:</div>
+                            L = 4πr²
+                        </div>
+                        <div class="formula">
+                            <div class="formula-title">Volume:</div>
+                            V = ⁴⁄₃πr³
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">r = jari-jari</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="latihan" class="tab-content">
+                <div class="info-box">
+                    <strong>📝 Petunjuk:</strong> Pilih salah satu jawaban untuk setiap soal, lalu klik "Periksa Jawaban" untuk melihat hasilnya!
+                </div>
+
+                <div id="questions-container"></div>
+                
+                <div class="buttons-container">
+                    <button class="button" onclick="checkAnswers()">✓ Periksa Jawaban</button>
+                    <button class="button" onclick="resetQuiz()" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">↻ Ulangi Kuis</button>
+                </div>
+
+                <div id="result-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Sebuah kubus memiliki panjang sisi 5 cm. Berapakah volume kubus tersebut?",
+                options: ["125 cm³", "100 cm³", "150 cm³", "75 cm³"],
+                correct: 0,
+                explanation: "Volume kubus = s³ = 5³ = 125 cm³"
+            },
+            {
+                question: "Sebuah balok memiliki ukuran panjang 8 cm, lebar 5 cm, dan tinggi 4 cm. Berapakah volume balok tersebut?",
+                options: ["160 cm³", "140 cm³", "120 cm³", "180 cm³"],
+                correct: 0,
+                explanation: "Volume balok = p × l × t = 8 × 5 × 4 = 160 cm³"
+            },
+            {
+                question: "Luas permukaan kubus dengan panjang sisi 6 cm adalah...",
+                options: ["216 cm²", "180 cm²", "144 cm²", "36 cm²"],
+                correct: 0,
+                explanation: "Luas permukaan kubus = 6 × s² = 6 × 6² = 6 × 36 = 216 cm²"
+            },
+            {
+                question: "Sebuah tabung memiliki jari-jari 7 cm dan tinggi 10 cm. Jika π = 22/7, maka volume tabung adalah...",
+                options: ["1.540 cm³", "1.400 cm³", "1.320 cm³", "1.680 cm³"],
+                correct: 0,
+                explanation: "Volume tabung = πr²t = (22/7) × 7² × 10 = (22/7) × 49 × 10 = 1.540 cm³"
+            },
+            {
+                question: "Volume sebuah bola dengan jari-jari 6 cm (π = 3,14) adalah...",
+                options: ["904,32 cm³", "804,32 cm³", "704,32 cm³", "604,32 cm³"],
+                correct: 0,
+                explanation: "Volume bola = ⁴⁄₃πr³ = ⁴⁄₃ × 3,14 × 6³ = ⁴⁄₃ × 3,14 × 216 = 904,32 cm³"
+            },
+            {
+                question: "Sebuah kerucut memiliki jari-jari alas 7 cm dan tinggi 12 cm. Jika π = 22/7, maka volume kerucut adalah...",
+                options: ["616 cm³", "516 cm³", "716 cm³", "816 cm³"],
+                correct: 0,
+                explanation: "Volume kerucut = ⅓πr²t = ⅓ × (22/7) × 7² × 12 = ⅓ × (22/7) × 49 × 12 = 616 cm³"
+            },
+            {
+                question: "Luas permukaan balok dengan ukuran 10 cm × 6 cm × 4 cm adalah...",
+                options: ["248 cm²", "240 cm²", "220 cm²", "260 cm²"],
+                correct: 0,
+                explanation: "Luas permukaan balok = 2(pl + pt + lt) = 2(10×6 + 10×4 + 6×4) = 2(60 + 40 + 24) = 2(124) = 248 cm²"
+            },
+            {
+                question: "Sebuah limas segiempat memiliki luas alas 64 cm² dan tinggi 9 cm. Volume limas tersebut adalah...",
+                options: ["192 cm³", "182 cm³", "202 cm³", "172 cm³"],
+                correct: 0,
+                explanation: "Volume limas = ⅓ × La × t = ⅓ × 64 × 9 = ⅓ × 576 = 192 cm³"
+            },
+            {
+                question: "Jika volume kubus adalah 343 cm³, maka panjang sisi kubus tersebut adalah...",
+                options: ["7 cm", "8 cm", "6 cm", "9 cm"],
+                correct: 0,
+                explanation: "Volume = s³, jadi s = ³√343 = 7 cm"
+            },
+            {
+                question: "Luas permukaan bola dengan jari-jari 10 cm (π = 3,14) adalah...",
+                options: ["1.256 cm²", "1.156 cm²", "1.356 cm²", "1.056 cm²"],
+                correct: 0,
+                explanation: "Luas permukaan bola = 4πr² = 4 × 3,14 × 10² = 4 × 3,14 × 100 = 1.256 cm²"
+            }
+        ];
+
+        let userAnswers = [];
+
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+
+            if (tabName === 'latihan' && document.getElementById('questions-container').children.length === 0) {
+                loadQuestions();
+            }
+        }
+
+        function loadQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            userAnswers = new Array(questions.length).fill(null);
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <h4>Soal ${index + 1}</h4>
+                    <p>${q.question}</p>
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" onclick="selectAnswer(${index}, ${optIndex})">
+                                ${String.fromCharCode(65 + optIndex)}. ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function selectAnswer(questionIndex, optionIndex) {
+            userAnswers[questionIndex] = optionIndex;
+            
+            const questionDiv = document.querySelectorAll('.question')[questionIndex];
+            const options = questionDiv.querySelectorAll('.option');
+            
+            options.forEach((opt, idx) => {
+                opt.classList.remove('selected');
+                if (idx === optionIndex) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            
+            questions.forEach((q, index) => {
+                const questionDiv = document.querySelectorAll('.question')[index];
+                const options = questionDiv.querySelectorAll('.option');
+                
+                options.forEach((opt, optIndex) => {
+                    opt.style.pointerEvents = 'none';
+                    opt.classList.remove('selected');
+                    
+                    if (optIndex === q.correct) {
+                        opt.classList.add('correct');
+                    } else if (optIndex === userAnswers[index]) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswers[index] === q.correct) {
+                    score++;
+                }
+
+                const explanation = document.createElement('div');
+                explanation.style.marginTop = '15px';
+                explanation.style.padding = '10px';
+                explanation.style.background = '#e8f5e9';
+                explanation.style.borderRadius = '5px';
+                explanation.style.fontSize = '0.9em';
+                explanation.innerHTML = `<strong>💡 Pembahasan:</strong> ${q.explanation}`;
+                questionDiv.appendChild(explanation);
+            });
+
+            showResult(score);
+        }
+
+        function showResult(score) {
+            const percentage = (score / questions.length * 100).toFixed(0);
+            let message = '';
+            
+            if (percentage >= 90) {
+                message = '🌟 Sempurna! Kamu sangat menguasai materi ini!';
+            } else if (percentage >= 70) {
+                message = '👍 Bagus! Terus tingkatkan pemahamanmu!';
+            } else if (percentage >= 50) {
+                message = '📚 Cukup baik! Pelajari lagi materinya ya!';
+            } else {
+                message = '💪 Jangan menyerah! Coba pelajari materinya lagi!';
+            }
+
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.innerHTML = `
+                <div class="result">
+                    <h3>🎯 Hasil Kuis</h3>
+                    <div class="score-display">${score}/${questions.length}</div>
+                    <p>Nilai: ${percentage}%</p>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        function resetQuiz() {
+            userAnswers = [];
+            document.getElementById('result-container').innerHTML = '';
+            loadQuestions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Load questions on page load if latihan tab is active
+        window.onload = function() {
+            // Initial state - no need to load questions until tab is clicked
+        };
+    </script>
+</body>
+</html>
