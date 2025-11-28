@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Soal Volume dan Luas Bangun Ruang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .answer-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .answer-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .check-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .check-btn:hover {
+            background: #5568d3;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .reset-btn {
+            background: #764ba2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+            transition: background 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #5f3a82;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .answer-section {
+                flex-direction: column;
+            }
+
+            .check-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📐 Latihan Soal Volume dan Luas Bangun Ruang</h1>
+            <p>20 Soal Cerita untuk Melatih Pemahaman Anda</p>
+        </div>
+
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar">0/20 Benar</div>
+            </div>
+
+            <div id="questionsContainer"></div>
+
+            <button class="reset-btn" onclick="resetQuiz()">🔄 Ulangi Latihan</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                text: "Sebuah kolam renang berbentuk balok memiliki panjang 25 meter, lebar 10 meter, dan kedalaman 2 meter. Berapa volume air yang dapat ditampung kolam tersebut dalam meter kubik?",
+                answer: 500
+            },
+            {
+                text: "Pak Ahmad ingin membuat aquarium berbentuk kubus dengan panjang rusuk 50 cm. Berapa liter air yang dibutuhkan untuk mengisi aquarium tersebut? (1 liter = 1000 cm³)",
+                answer: 125
+            },
+            {
+                text: "Sebuah bak mandi berbentuk balok berukuran panjang 120 cm, lebar 80 cm, dan tinggi 60 cm. Berapa luas permukaan bak mandi tersebut dalam cm²?",
+                answer: 43200
+            },
+            {
+                text: "Sebuah tenda berbentuk prisma segitiga memiliki alas segitiga dengan panjang alas 4 meter dan tinggi 3 meter. Jika panjang tenda 5 meter, berapa volume tenda tersebut dalam m³?",
+                answer: 30
+            },
+            {
+                text: "Sebuah kotak kado berbentuk kubus memiliki volume 1.728 cm³. Berapa panjang rusuk kotak kado tersebut dalam cm?",
+                answer: 12
+            },
+            {
+                text: "Sebuah tangki air berbentuk tabung memiliki jari-jari 70 cm dan tinggi 2 meter. Berapa volume tangki tersebut dalam liter? (gunakan π = 22/7, 1 liter = 1000 cm³)",
+                answer: 3080
+            },
+            {
+                text: "Sebuah bola memiliki jari-jari 21 cm. Berapa luas permukaan bola tersebut dalam cm²? (gunakan π = 22/7)",
+                answer: 5544
+            },
+            {
+                text: "Sebuah limas segiempat memiliki alas berbentuk persegi dengan sisi 10 cm dan tinggi limas 12 cm. Berapa volume limas tersebut dalam cm³?",
+                answer: 400
+            },
+            {
+                text: "Sebuah drum minyak berbentuk tabung dengan diameter 60 cm dan tinggi 100 cm. Berapa liter minyak yang dapat ditampung drum tersebut? (gunakan π = 3,14, 1 liter = 1000 cm³)",
+                answer: 282.6
+            },
+            {
+                text: "Sebuah ruangan berbentuk balok memiliki panjang 8 meter, lebar 6 meter, dan tinggi 4 meter. Berapa luas dinding ruangan yang perlu dicat (tanpa lantai dan plafon) dalam m²?",
+                answer: 112
+            },
+            {
+                text: "Sebuah kerucut es krim memiliki diameter 6 cm dan tinggi 10 cm. Berapa volume es krim yang dapat ditampung kerucut tersebut dalam cm³? (gunakan π = 3,14)",
+                answer: 94.2
+            },
+            {
+                text: "Sebuah bola basket memiliki diameter 24 cm. Berapa volume bola basket tersebut dalam cm³? (gunakan π = 3,14)",
+                answer: 7234.56
+            },
+            {
+                text: "Sebuah atap rumah berbentuk limas segiempat dengan alas persegi bersisi 8 meter dan tinggi atap 3 meter. Berapa volume ruang di bawah atap dalam m³?",
+                answer: 64
+            },
+            {
+                text: "Sebuah pipa paralon berbentuk tabung memiliki panjang 3 meter dengan diameter dalam 5 cm. Berapa volume air yang dapat mengalir melalui pipa tersebut dalam cm³? (gunakan π = 3,14)",
+                answer: 5887.5
+            },
+            {
+                text: "Sebuah kotak pensil berbentuk balok memiliki panjang 20 cm, lebar 8 cm, dan tinggi 4 cm. Jika akan dibungkus dengan kertas kado, berapa luas kertas minimal yang dibutuhkan dalam cm²?",
+                answer: 672
+            },
+            {
+                text: "Sebuah tong sampah berbentuk tabung tanpa tutup memiliki diameter 40 cm dan tinggi 60 cm. Berapa luas bahan yang diperlukan untuk membuat tong tersebut dalam cm²? (gunakan π = 3,14)",
+                answer: 8792
+            },
+            {
+                text: "Sebuah piramida di Mesir memiliki alas berbentuk persegi dengan sisi 230 meter dan tinggi 146 meter. Berapa volume piramida tersebut dalam m³?",
+                answer: 2573266.67
+            },
+            {
+                text: "Sebuah bola lampu dekoratif berbentuk bola dengan jari-jari 7 cm. Berapa volume udara di dalam bola lampu tersebut dalam cm³? (gunakan π = 22/7)",
+                answer: 1437.33
+            },
+            {
+                text: "Sebuah gudang berbentuk prisma segitiga. Alas segitiga memiliki panjang alas 6 meter dan tinggi 4 meter. Jika panjang gudang 12 meter, berapa volume gudang dalam m³?",
+                answer: 144
+            },
+            {
+                text: "Sebuah topi ulang tahun berbentuk kerucut dengan diameter alas 12 cm dan tinggi 15 cm. Jika akan dilapisi kertas warna, berapa luas kertas yang dibutuhkan untuk melapisi selimut kerucut (tanpa alas) dalam cm²? (gunakan π = 3,14 dan √(15² + 6²) = √261 ≈ 16,16)",
+                answer: 304.42
+            }
+        ];
+
+        let correctAnswers = 0;
+
+        function createQuestions() {
+            const container = document.getElementById('questionsContainer');
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <span class="question-number">Soal ${index + 1}</span>
+                    <div class="question-text">${q.text}</div>
+                    <div class="answer-section">
+                        <input type="number" class="answer-input" id="answer${index}" placeholder="Masukkan jawaban Anda..." step="0.01">
+                        <button class="check-btn" onclick="checkAnswer(${index})">Cek</button>
+                    </div>
+                    <div class="feedback" id="feedback${index}"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkAnswer(index) {
+            const input = document.getElementById(`answer${index}`);
+            const feedback = document.getElementById(`feedback${index}`);
+            const userAnswer = parseFloat(input.value);
+            const correctAnswer = questions[index].answer;
+
+            // Toleransi untuk pembulatan (2 desimal)
+            const tolerance = 0.5;
+            const isCorrect = Math.abs(userAnswer - correctAnswer) <= tolerance;
+
+            if (input.value === '') {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = '❌ Silakan masukkan jawaban terlebih dahulu!';
+                return;
+            }
+
+            if (isCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = `✅ Benar! Jawaban yang tepat adalah ${correctAnswer}`;
+                if (!input.dataset.correct) {
+                    correctAnswers++;
+                    input.dataset.correct = 'true';
+                    updateProgress();
+                }
+                input.disabled = true;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `❌ Kurang tepat. Coba periksa perhitungan Anda kembali. Jawaban yang benar adalah ${correctAnswer}`;
+            }
+        }
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const percentage = (correctAnswers / questions.length) * 100;
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = `${correctAnswers}/${questions.length} Benar`;
+        }
+
+        function resetQuiz() {
+            correctAnswers = 0;
+            updateProgress();
+            questions.forEach((q, index) => {
+                const input = document.getElementById(`answer${index}`);
+                const feedback = document.getElementById(`feedback${index}`);
+                input.value = '';
+                input.disabled = false;
+                input.dataset.correct = '';
+                feedback.className = 'feedback';
+                feedback.textContent = '';
+            });
+        }
+
+        // Initialize
+        createQuestions();
+    </script>
+</body>
+</html>
