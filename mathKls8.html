@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Matematika Kelas 8 SMP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .question {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .question:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            margin-left: 20px;
+        }
+
+        .option {
+            margin: 8px 0;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .category {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .cat-bilangan {
+            background: #ffeaa7;
+            color: #d63031;
+        }
+
+        .cat-geometri {
+            background: #74b9ff;
+            color: #0984e3;
+        }
+
+        .cat-aljabar {
+            background: #a29bfe;
+            color: #6c5ce7;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .result {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .correct {
+            background: #d4edda !important;
+        }
+
+        .incorrect {
+            background: #f8d7da !important;
+        }
+
+        .answer-key {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .answer-key.show {
+            display: block;
+        }
+
+        .answer-key h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .answer-item {
+            padding: 8px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📐 Soal Matematika Kelas 8 SMP</h1>
+            <p>Bilangan, Geometri, dan Aljabar</p>
+        </div>
+        
+        <div class="content">
+            <form id="quizForm">
+                <!-- Soal 1 -->
+                <div class="question">
+                    <span class="category cat-bilangan">BILANGAN</span>
+                    <div class="question-number">Soal 1</div>
+                    <div class="question-text">Hasil dari -15 + 23 - (-8) adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q1" value="A"> A. 16</label>
+                        <label class="option"><input type="radio" name="q1" value="B"> B. 0</label>
+                        <label class="option"><input type="radio" name="q1" value="C"> C. 30</label>
+                        <label class="option"><input type="radio" name="q1" value="D"> D. -16</label>
+                    </div>
+                </div>
+
+                <!-- Soal 2 -->
+                <div class="question">
+                    <span class="category cat-aljabar">ALJABAR</span>
+                    <div class="question-number">Soal 2</div>
+                    <div class="question-text">Bentuk sederhana dari 3x + 5y - 2x + 7y adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q2" value="A"> A. x + 12y</label>
+                        <label class="option"><input type="radio" name="q2" value="B"> B. 5x + 12y</label>
+                        <label class="option"><input type="radio" name="q2" value="C"> C. x + 2y</label>
+                        <label class="option"><input type="radio" name="q2" value="D"> D. 5x + 2y</label>
+                    </div>
+                </div>
+
+                <!-- Soal 3 -->
+                <div class="question">
+                    <span class="category cat-geometri">GEOMETRI</span>
+                    <div class="question-number">Soal 3</div>
+                    <div class="question-text">Luas lingkaran dengan jari-jari 14 cm adalah... (π = 22/7)</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q3" value="A"> A. 616 cm²</label>
+                        <label class="option"><input type="radio" name="q3" value="B"> B. 154 cm²</label>
+                        <label class="option"><input type="radio" name="q3" value="C"> C. 308 cm²</label>
+                        <label class="option"><input type="radio" name="q3" value="D"> D. 88 cm²</label>
+                    </div>
+                </div>
+
+                <!-- Soal 4 -->
+                <div class="question">
+                    <span class="category cat-bilangan">BILANGAN</span>
+                    <div class="question-number">Soal 4</div>
+                    <div class="question-text">Hasil dari 2³ × 2⁴ adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q4" value="A"> A. 2⁷</label>
+                        <label class="option"><input type="radio" name="q4" value="B"> B. 2¹²</label>
+                        <label class="option"><input type="radio" name="q4" value="C"> C. 4⁷</label>
+                        <label class="option"><input type="radio" name="q4" value="D"> D. 4¹²</label>
+                    </div>
+                </div>
+
+                <!-- Soal 5 -->
+                <div class="question">
+                    <span class="category cat-aljabar">ALJABAR</span>
+                    <div class="question-number">Soal 5</div>
+                    <div class="question-text">Jika 2x + 5 = 17, maka nilai x adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q5" value="A"> A. 6</label>
+                        <label class="option"><input type="radio" name="q5" value="B"> B. 11</label>
+                        <label class="option"><input type="radio" name="q5" value="C"> C. 12</label>
+                        <label class="option"><input type="radio" name="q5" value="D"> D. 22</label>
+                    </div>
+                </div>
+
+                <!-- Soal 6 -->
+                <div class="question">
+                    <span class="category cat-geometri">GEOMETRI</span>
+                    <div class="question-number">Soal 6</div>
+                    <div class="question-text">Keliling persegi panjang dengan panjang 12 cm dan lebar 8 cm adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q6" value="A"> A. 40 cm</label>
+                        <label class="option"><input type="radio" name="q6" value="B"> B. 96 cm</label>
+                        <label class="option"><input type="radio" name="q6" value="C"> C. 20 cm</label>
+                        <label class="option"><input type="radio" name="q6" value="D"> D. 48 cm</label>
+                    </div>
+                </div>
+
+                <!-- Soal 7 -->
+                <div class="question">
+                    <span class="category cat-bilangan">BILANGAN</span>
+                    <div class="question-number">Soal 7</div>
+                    <div class="question-text">Hasil dari √144 + √81 adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q7" value="A"> A. 15</label>
+                        <label class="option"><input type="radio" name="q7" value="B"> B. 21</label>
+                        <label class="option"><input type="radio" name="q7" value="C"> C. 225</label>
+                        <label class="option"><input type="radio" name="q7" value="D"> D. 12</label>
+                    </div>
+                </div>
+
+                <!-- Soal 8 -->
+                <div class="question">
+                    <span class="category cat-aljabar">ALJABAR</span>
+                    <div class="question-number">Soal 8</div>
+                    <div class="question-text">Hasil dari (x + 4)(x - 3) adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q8" value="A"> A. x² + x - 12</label>
+                        <label class="option"><input type="radio" name="q8" value="B"> B. x² - x - 12</label>
+                        <label class="option"><input type="radio" name="q8" value="C"> C. x² + 7x - 12</label>
+                        <label class="option"><input type="radio" name="q8" value="D"> D. x² + x + 12</label>
+                    </div>
+                </div>
+
+                <!-- Soal 9 -->
+                <div class="question">
+                    <span class="category cat-geometri">GEOMETRI</span>
+                    <div class="question-number">Soal 9</div>
+                    <div class="question-text">Volume kubus dengan panjang rusuk 5 cm adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q9" value="A"> A. 25 cm³</label>
+                        <label class="option"><input type="radio" name="q9" value="B"> B. 125 cm³</label>
+                        <label class="option"><input type="radio" name="q9" value="C"> C. 75 cm³</label>
+                        <label class="option"><input type="radio" name="q9" value="D"> D. 15 cm³</label>
+                    </div>
+                </div>
+
+                <!-- Soal 10 -->
+                <div class="question">
+                    <span class="category cat-bilangan">BILANGAN</span>
+                    <div class="question-number">Soal 10</div>
+                    <div class="question-text">FPB dari 24 dan 36 adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q10" value="A"> A. 6</label>
+                        <label class="option"><input type="radio" name="q10" value="B"> B. 12</label>
+                        <label class="option"><input type="radio" name="q10" value="C"> C. 18</label>
+                        <label class="option"><input type="radio" name="q10" value="D"> D. 4</label>
+                    </div>
+                </div>
+
+                <!-- Soal 11 -->
+                <div class="question">
+                    <span class="category cat-aljabar">ALJABAR</span>
+                    <div class="question-number">Soal 11</div>
+                    <div class="question-text">Jika 3(x - 2) = 15, maka nilai x adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q11" value="A"> A. 5</label>
+                        <label class="option"><input type="radio" name="q11" value="B"> B. 7</label>
+                        <label class="option"><input type="radio" name="q11" value="C"> C. 9</label>
+                        <label class="option"><input type="radio" name="q11" value="D"> D. 11</label>
+                    </div>
+                </div>
+
+                <!-- Soal 12 -->
+                <div class="question">
+                    <span class="category cat-geometri">GEOMETRI</span>
+                    <div class="question-number">Soal 12</div>
+                    <div class="question-text">Keliling lingkaran dengan diameter 28 cm adalah... (π = 22/7)</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q12" value="A"> A. 88 cm</label>
+                        <label class="option"><input type="radio" name="q12" value="B"> B. 44 cm</label>
+                        <label class="option"><input type="radio" name="q12" value="C"> C. 176 cm</label>
+                        <label class="option"><input type="radio" name="q12" value="D"> D. 616 cm</label>
+                    </div>
+                </div>
+
+                <!-- Soal 13 -->
+                <div class="question">
+                    <span class="category cat-bilangan">BILANGAN</span>
+                    <div class="question-number">Soal 13</div>
+                    <div class="question-text">Hasil dari (-4) × (-6) + (-3) adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q13" value="A"> A. 21</label>
+                        <label class="option"><input type="radio" name="q13" value="B"> B. 27</label>
+                        <label class="option"><input type="radio" name="q13" value="C"> C. -21</label>
+                        <label class="option"><input type="radio" name="q13" value="D"> D. -27</label>
+                    </div>
+                </div>
+
+                <!-- Soal 14 -->
+                <div class="question">
+                    <span class="category cat-aljabar">ALJABAR</span>
+                    <div class="question-number">Soal 14</div>
+                    <div class="question-text">Hasil dari (2a²b)(3ab³) adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q14" value="A"> A. 6a³b⁴</label>
+                        <label class="option"><input type="radio" name="q14" value="B"> B. 5a³b⁴</label>
+                        <label class="option"><input type="radio" name="q14" value="C"> C. 6a²b³</label>
+                        <label class="option"><input type="radio" name="q14" value="D"> D. 6ab</label>
+                    </div>
+                </div>
+
+                <!-- Soal 15 -->
+                <div class="question">
+                    <span class="category cat-geometri">GEOMETRI</span>
+                    <div class="question-number">Soal 15</div>
+                    <div class="question-text">Luas permukaan balok dengan panjang 10 cm, lebar 6 cm, dan tinggi 4 cm adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q15" value="A"> A. 240 cm²</label>
+                        <label class="option"><input type="radio" name="q15" value="B"> B. 248 cm²</label>
+                        <label class="option"><input type="radio" name="q15" value="C"> C. 124 cm²</label>
+                        <label class="option"><input type="radio" name="q15" value="D"> D. 20 cm²</label>
+                    </div>
+                </div>
+
+                <!-- Soal 16 -->
+                <div class="question">
+                    <span class="category cat-bilangan">BILANGAN</span>
+                    <div class="question-number">Soal 16</div>
+                    <div class="question-text">KPK dari 15 dan 20 adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q16" value="A"> A. 5</label>
+                        <label class="option"><input type="radio" name="q16" value="B"> B. 60</label>
+                        <label class="option"><input type="radio" name="q16" value="C"> C. 100</label>
+                        <label class="option"><input type="radio" name="q16" value="D"> D. 300</label>
+                    </div>
+                </div>
+
+                <!-- Soal 17 -->
+                <div class="question">
+                    <span class="category cat-aljabar">ALJABAR</span>
+                    <div class="question-number">Soal 17</div>
+                    <div class="question-text">Faktorisasi dari x² + 7x + 12 adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q17" value="A"> A. (x + 3)(x + 4)</label>
+                        <label class="option"><input type="radio" name="q17" value="B"> B. (x + 2)(x + 6)</label>
+                        <label class="option"><input type="radio" name="q17" value="C"> C. (x + 1)(x + 12)</label>
+                        <label class="option"><input type="radio" name="q17" value="D"> D. (x - 3)(x - 4)</label>
+                    </div>
+                </div>
+
+                <!-- Soal 18 -->
+                <div class="question">
+                    <span class="category cat-geometri">GEOMETRI</span>
+                    <div class="question-number">Soal 18</div>
+                    <div class="question-text">Luas segitiga dengan alas 16 cm dan tinggi 9 cm adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q18" value="A"> A. 144 cm²</label>
+                        <label class="option"><input type="radio" name="q18" value="B"> B. 72 cm²</label>
+                        <label class="option"><input type="radio" name="q18" value="C"> C. 25 cm²</label>
+                        <label class="option"><input type="radio" name="q18" value="D"> D. 50 cm²</label>
+                    </div>
+                </div>
+
+                <!-- Soal 19 -->
+                <div class="question">
+                    <span class="category cat-bilangan">BILANGAN</span>
+                    <div class="question-number">Soal 19</div>
+                    <div class="question-text">Bentuk desimal dari 3/5 adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q19" value="A"> A. 0,3</label>
+                        <label class="option"><input type="radio" name="q19" value="B"> B. 0,6</label>
+                        <label class="option"><input type="radio" name="q19" value="C"> C. 0,5</label>
+                        <label class="option"><input type="radio" name="q19" value="D"> D. 0,35</label>
+                    </div>
+                </div>
+
+                <!-- Soal 20 -->
+                <div class="question">
+                    <span class="category cat-aljabar">ALJABAR</span>
+                    <div class="question-number">Soal 20</div>
+                    <div class="question-text">Hasil dari (x + 5)² adalah...</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q20" value="A"> A. x² + 25</label>
+                        <label class="option"><input type="radio" name="q20" value="B"> B. x² + 10x + 25</label>
+                        <label class="option"><input type="radio" name="q20" value="C"> C. x² + 5x + 25</label>
+                        <label class="option"><input type="radio" name="q20" value="D"> D. x² + 10x + 10</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Periksa Jawaban</button>
+            </form>
+
+            <div id="result" class="result"></div>
+            <div id="answerKey" class="answer-key"></div>
+        </div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: 'A',
+            q2: 'A',
+            q3: 'A',
+            q4: 'A',
+            q5: 'A',
+            q6: 'A',
+            q7: 'B',
+            q8: 'A',
+            q9: 'B',
+            q10: 'B',
+            q11: 'B',
+            q12: 'A',
+            q13: 'A',
+            q14: 'A',
+            q15: 'B',
+            q16: 'B',
+            q17: 'A',
+            q18: 'B',
+            q19: 'B',
+            q20: 'B'
+        };
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let score = 0;
+            let total = 20;
+            let answerKeyHTML = '<h3>Kunci Jawaban:</h3>';
+            
+            for (let i = 1; i <= total; i++) {
+                const questionName = 'q' + i;
+                const userAnswer = document.querySelector(`input[name="${questionName}"]:checked`);
+                const questionDiv = document.querySelector(`input[name="${questionName}"]`).closest('.question');
+                
+                if (userAnswer && userAnswer.value === answers[questionName]) {
+                    score++;
+                    questionDiv.classList.add('correct');
+                    questionDiv.classList.remove('incorrect');
+                } else {
+                    questionDiv.classList.add('incorrect');
+                    questionDiv.classList.remove('correct');
+                }
+                
+                answerKeyHTML += `<div class="answer-item"><strong>Soal ${i}:</strong> Jawaban yang benar adalah <strong>${answers[questionName]}</strong></div>`;
+            }
+            
+            const percentage = (score / total * 100).toFixed(1);
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h2>Hasil Quiz</h2>
+                <p>Skor Anda: <strong>${score} dari ${total}</strong> (${percentage}%)</p>
+                <p>${percentage >= 75 ? '🎉 Selamat! Anda lulus!' : '📚 Tetap semangat belajar!'}</p>
+            `;
+            resultDiv.classList.add('show');
+            
+            const answerKeyDiv = document.getElementById('answerKey');
+            answerKeyDiv.innerHTML = answerKeyHTML;
+            answerKeyDiv.classList.add('show');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
