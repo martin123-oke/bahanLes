@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30 Soal Matematika Kelas 9</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .question-category {
+            background: #764ba2;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .result p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: white;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .reset-btn {
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .question-text {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Soal Matematika Kelas 9</h1>
+        <p class="subtitle">SPLDV, Bangun Datar, Bangun Ruang, Aljabar, dan Transformasi Geometri</p>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div id="questionsContainer"></div>
+
+        <button class="submit-btn" id="submitBtn">Lihat Hasil</button>
+
+        <div class="result" id="result">
+            <h2>🎉 Hasil Kuis</h2>
+            <div class="score-circle" id="scoreCircle">0</div>
+            <p id="resultText"></p>
+            <button class="reset-btn" onclick="location.reload()">Ulangi Kuis</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // SPLDV (6 soal)
+            {
+                category: "SPLDV",
+                question: "Diketahui sistem persamaan 2x + y = 8 dan x - y = 1. Nilai x + y adalah...",
+                options: ["5", "6", "7", "8"],
+                correct: 2
+            },
+            {
+                category: "SPLDV",
+                question: "Harga 3 buku dan 2 pensil adalah Rp15.000. Harga 2 buku dan 3 pensil adalah Rp13.000. Harga 1 buku adalah...",
+                options: ["Rp3.000", "Rp4.000", "Rp5.000", "Rp6.000"],
+                correct: 1
+            },
+            {
+                category: "SPLDV",
+                question: "Jika x + 2y = 10 dan 2x - y = 5, maka nilai 3x + y adalah...",
+                options: ["15", "18", "20", "22"],
+                correct: 0
+            },
+            {
+                category: "SPLDV",
+                question: "Selisih dua bilangan adalah 6 dan jumlahnya 24. Bilangan terbesar adalah...",
+                options: ["12", "15", "18", "20"],
+                correct: 1
+            },
+            {
+                category: "SPLDV",
+                question: "Umur ayah 3 kali umur anaknya. 10 tahun yang akan datang, umur ayah 2 kali umur anaknya. Umur anak sekarang adalah...",
+                options: ["8 tahun", "10 tahun", "12 tahun", "15 tahun"],
+                correct: 1
+            },
+            {
+                category: "SPLDV",
+                question: "Diketahui 3x + 2y = 12 dan 2x + 3y = 13. Nilai x - y adalah...",
+                options: ["-1", "0", "1", "2"],
+                correct: 0
+            },
+            
+            // Bangun Datar (6 soal)
+            {
+                category: "Bangun Datar",
+                question: "Luas lingkaran dengan diameter 14 cm adalah... (π = 22/7)",
+                options: ["154 cm²", "308 cm²", "44 cm²", "88 cm²"],
+                correct: 0
+            },
+            {
+                category: "Bangun Datar",
+                question: "Keliling lingkaran dengan jari-jari 21 cm adalah... (π = 22/7)",
+                options: ["66 cm", "132 cm", "264 cm", "1386 cm"],
+                correct: 1
+            },
+            {
+                category: "Bangun Datar",
+                question: "Luas juring lingkaran dengan sudut pusat 90° dan jari-jari 14 cm adalah... (π = 22/7)",
+                options: ["77 cm²", "154 cm²", "308 cm²", "616 cm²"],
+                correct: 1
+            },
+            {
+                category: "Bangun Datar",
+                question: "Panjang busur lingkaran dengan sudut pusat 60° dan jari-jari 21 cm adalah... (π = 22/7)",
+                options: ["11 cm", "22 cm", "33 cm", "44 cm"],
+                correct: 1
+            },
+            {
+                category: "Bangun Datar",
+                question: "Luas tembereng lingkaran dengan sudut pusat 120° dan jari-jari 7 cm jika luas segitiga adalah 21,2 cm² adalah... (π = 22/7)",
+                options: ["30 cm²", "51,3 cm²", "29,9 cm²", "40 cm²"],
+                correct: 2
+            },
+            {
+                category: "Bangun Datar",
+                question: "Luas layang-layang dengan diagonal 16 cm dan 12 cm adalah...",
+                options: ["96 cm²", "192 cm²", "48 cm²", "144 cm²"],
+                correct: 0
+            },
+
+            // Bangun Ruang (6 soal)
+            {
+                category: "Bangun Ruang",
+                question: "Volume limas segi empat dengan luas alas 36 cm² dan tinggi 10 cm adalah...",
+                options: ["120 cm³", "240 cm³", "360 cm³", "480 cm³"],
+                correct: 0
+            },
+            {
+                category: "Bangun Ruang",
+                question: "Volume prisma segitiga dengan luas alas 24 cm² dan tinggi 15 cm adalah...",
+                options: ["180 cm³", "240 cm³", "360 cm³", "480 cm³"],
+                correct: 2
+            },
+            {
+                category: "Bangun Ruang",
+                question: "Volume kerucut dengan jari-jari 7 cm dan tinggi 12 cm adalah... (π = 22/7)",
+                options: ["308 cm³", "616 cm³", "924 cm³", "1232 cm³"],
+                correct: 1
+            },
+            {
+                category: "Bangun Ruang",
+                question: "Luas permukaan limas segiempat dengan panjang rusuk alas 6 cm dan tinggi sisi tegak 5 cm adalah...",
+                options: ["96 cm²", "120 cm²", "84 cm²", "108 cm²"],
+                correct: 0
+            },
+            {
+                category: "Bangun Ruang",
+                question: "Luas permukaan kerucut dengan jari-jari 7 cm dan garis pelukis 25 cm adalah... (π = 22/7)",
+                options: ["550 cm²", "704 cm²", "858 cm²", "1012 cm²"],
+                correct: 1
+            },
+            {
+                category: "Bangun Ruang",
+                question: "Volume prisma dengan alas berbentuk trapesium (sisi sejajar 8 cm dan 12 cm, tinggi 6 cm) dan tinggi prisma 10 cm adalah...",
+                options: ["300 cm³", "400 cm³", "500 cm³", "600 cm³"],
+                correct: 3
+            },
+
+            // Aljabar (6 soal)
+            {
+                category: "Aljabar",
+                question: "Hasil dari (2x + 3)(x - 4) adalah...",
+                options: ["2x² - 5x - 12", "2x² + 5x - 12", "2x² - 8x - 12", "2x² - 5x + 12"],
+                correct: 0
+            },
+            {
+                category: "Aljabar",
+                question: "Faktorisasi dari x² - 9 adalah...",
+                options: ["(x - 3)(x - 3)", "(x + 3)(x + 3)", "(x - 3)(x + 3)", "(x - 9)(x + 1)"],
+                correct: 2
+            },
+            {
+                category: "Aljabar",
+                question: "Hasil dari (x + 5)² adalah...",
+                options: ["x² + 25", "x² + 10x + 25", "x² + 5x + 25", "x² + 10x + 10"],
+                correct: 1
+            },
+            {
+                category: "Aljabar",
+                question: "Faktorisasi dari x² + 7x + 12 adalah...",
+                options: ["(x + 3)(x + 4)", "(x + 2)(x + 6)", "(x + 1)(x + 12)", "(x - 3)(x - 4)"],
+                correct: 0
+            },
+            {
+                category: "Aljabar",
+                question: "Jika f(x) = 2x + 3 dan g(x) = x - 1, maka (f + g)(x) adalah...",
+                options: ["3x + 2", "3x + 4", "x + 2", "2x + 2"],
+                correct: 0
+            },
+            {
+                category: "Aljabar",
+                question: "Hasil bagi dari (x³ - 8) : (x - 2) adalah...",
+                options: ["x² + 2x + 4", "x² - 2x + 4", "x² + 4", "x² + 2x - 4"],
+                correct: 0
+            },
+
+            // Transformasi Geometri (6 soal)
+            {
+                category: "Transformasi",
+                question: "Bayangan titik A(3, 2) yang ditranslasi oleh T(4, -1) adalah...",
+                options: ["(7, 1)", "(7, 3)", "(-1, 1)", "(1, 3)"],
+                correct: 0
+            },
+            {
+                category: "Transformasi",
+                question: "Bayangan titik B(4, 5) yang direfleksikan terhadap sumbu X adalah...",
+                options: ["(4, -5)", "(-4, 5)", "(-4, -5)", "(5, 4)"],
+                correct: 0
+            },
+            {
+                category: "Transformasi",
+                question: "Bayangan titik C(-2, 3) yang direfleksikan terhadap sumbu Y adalah...",
+                options: ["(2, 3)", "(-2, -3)", "(2, -3)", "(3, -2)"],
+                correct: 0
+            },
+            {
+                category: "Transformasi",
+                question: "Bayangan titik D(5, 2) yang dirotasikan 90° searah jarum jam dengan pusat O(0,0) adalah...",
+                options: ["(2, -5)", "(-2, 5)", "(2, 5)", "(-5, -2)"],
+                correct: 0
+            },
+            {
+                category: "Transformasi",
+                question: "Bayangan titik E(3, 4) yang didilatasikan dengan pusat O(0,0) dan faktor skala 2 adalah...",
+                options: ["(6, 8)", "(3, 8)", "(6, 4)", "(1.5, 2)"],
+                correct: 0
+            },
+            {
+                category: "Transformasi",
+                question: "Titik F(2, -3) direfleksikan terhadap garis y = x. Bayangannya adalah...",
+                options: ["(-3, 2)", "(3, -2)", "(-2, 3)", "(2, 3)"],
+                correct: 0
+            }
+        ];
+
+        let answers = {};
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-header">
+                        <span class="question-number">Soal ${index + 1}</span>
+                        <span class="question-category">${q.category}</span>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">
+                        ${q.options.map((opt, optIndex) => `
+                            <label class="option" id="option-${index}-${optIndex}">
+                                <input type="radio" name="q${index}" value="${optIndex}" 
+                                    onchange="selectAnswer(${index}, ${optIndex})">
+                                <span>${String.fromCharCode(65 + optIndex)}. ${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectAnswer(questionIndex, optionIndex) {
+            answers[questionIndex] = optionIndex;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answered = Object.keys(answers).length;
+            const progress = (answered / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            if (answered === questions.length) {
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            questions.forEach((q, index) => {
+                const userAnswer = answers[index];
+                q.options.forEach((opt, optIndex) => {
+                    const optionEl = document.getElementById(`option-${index}-${optIndex}`);
+                    if (optIndex === q.correct) {
+                        optionEl.classList.add('correct');
+                    } else if (optIndex === userAnswer && userAnswer !== q.correct) {
+                        optionEl.classList.add('incorrect');
+                    }
+                });
+                
+                if (userAnswer === q.correct) {
+                    correct++;
+                }
+            });
+
+            const score = Math.round((correct / questions.length) * 100);
+            document.getElementById('scoreCircle').textContent = score;
+            document.getElementById('resultText').innerHTML = `
+                Anda menjawab <strong>${correct}</strong> dari <strong>${questions.length}</strong> soal dengan benar!<br>
+                <span style="font-size: 0.9em;">Persentase: ${score}%</span>
+            `;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('submitBtn').style.display = 'none';
+
+            // Scroll to result
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', submitQuiz);
+        document.getElementById('submitBtn').disabled = true;
+
+        renderQuestions();
+    </script>
+</body>
+</html>
