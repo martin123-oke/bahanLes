@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Soal SPLDV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .soal-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .soal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .soal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .soal-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .method-badge {
+            background: #764ba2;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .soal-content {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .persamaan {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            border: 2px solid #e0e0e0;
+        }
+
+        .input-group {
+            margin-top: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-check {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-hint {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-hint:hover {
+            background: #ffb300;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .result.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            display: block;
+        }
+
+        .result.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+            display: block;
+        }
+
+        .hint {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #ffc107;
+            display: none;
+        }
+
+        .hint.show {
+            display: block;
+        }
+
+        .score-container {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .soal-content {
+                font-size: 1em;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Latihan Soal SPLDV</h1>
+        <p class="subtitle">Sistem Persamaan Linear Dua Variabel: Eliminasi, Substitusi, dan Grafik</p>
+
+        <!-- Soal 1 -->
+        <div class="soal-card">
+            <div class="soal-header">
+                <span class="soal-number">Soal 1</span>
+                <span class="method-badge">Metode Eliminasi</span>
+            </div>
+            <div class="soal-content">
+                Selesaikan sistem persamaan berikut dengan metode eliminasi:
+                <div class="persamaan">
+                    2x + 3y = 12<br>
+                    4x - y = 5
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Nilai x:</label>
+                <input type="number" class="answer-input" id="answer1x" placeholder="Masukkan nilai x">
+            </div>
+            <div class="input-group">
+                <label>Nilai y:</label>
+                <input type="number" class="answer-input" id="answer1y" placeholder="Masukkan nilai y">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkAnswer(1)">Cek Jawaban</button>
+                <button class="btn-hint" onclick="showHint(1)">Lihat Petunjuk</button>
+            </div>
+            <div class="result" id="result1"></div>
+            <div class="hint" id="hint1">
+                <strong>Petunjuk:</strong><br>
+                1. Kalikan persamaan pertama dengan 1 dan persamaan kedua dengan 3<br>
+                2. Jumlahkan kedua persamaan untuk mengeliminasi y<br>
+                3. Setelah dapat x, substitusikan ke salah satu persamaan untuk mendapat y
+            </div>
+        </div>
+
+        <!-- Soal 2 -->
+        <div class="soal-card">
+            <div class="soal-header">
+                <span class="soal-number">Soal 2</span>
+                <span class="method-badge">Metode Substitusi</span>
+            </div>
+            <div class="soal-content">
+                Selesaikan sistem persamaan berikut dengan metode substitusi:
+                <div class="persamaan">
+                    x + 2y = 8<br>
+                    3x - y = 5
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Nilai x:</label>
+                <input type="number" class="answer-input" id="answer2x" placeholder="Masukkan nilai x">
+            </div>
+            <div class="input-group">
+                <label>Nilai y:</label>
+                <input type="number" class="answer-input" id="answer2y" placeholder="Masukkan nilai y">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkAnswer(2)">Cek Jawaban</button>
+                <button class="btn-hint" onclick="showHint(2)">Lihat Petunjuk</button>
+            </div>
+            <div class="result" id="result2"></div>
+            <div class="hint" id="hint2">
+                <strong>Petunjuk:</strong><br>
+                1. Ubah persamaan pertama menjadi x = 8 - 2y<br>
+                2. Substitusikan x ke persamaan kedua<br>
+                3. Selesaikan untuk mendapat y, lalu hitung x
+            </div>
+        </div>
+
+        <!-- Soal 3 -->
+        <div class="soal-card">
+            <div class="soal-header">
+                <span class="soal-number">Soal 3</span>
+                <span class="method-badge">Metode Eliminasi</span>
+            </div>
+            <div class="soal-content">
+                Selesaikan sistem persamaan berikut dengan metode eliminasi:
+                <div class="persamaan">
+                    5x + 2y = 16<br>
+                    3x + 4y = 18
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Nilai x:</label>
+                <input type="number" class="answer-input" id="answer3x" placeholder="Masukkan nilai x">
+            </div>
+            <div class="input-group">
+                <label>Nilai y:</label>
+                <input type="number" class="answer-input" id="answer3y" placeholder="Masukkan nilai y">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkAnswer(3)">Cek Jawaban</button>
+                <button class="btn-hint" onclick="showHint(3)">Lihat Petunjuk</button>
+            </div>
+            <div class="result" id="result3"></div>
+            <div class="hint" id="hint3">
+                <strong>Petunjuk:</strong><br>
+                1. Kalikan persamaan pertama dengan 2 untuk menyamakan koefisien y<br>
+                2. Kurangkan kedua persamaan untuk mengeliminasi y<br>
+                3. Substitusikan nilai x yang diperoleh ke salah satu persamaan
+            </div>
+        </div>
+
+        <!-- Soal 4 -->
+        <div class="soal-card">
+            <div class="soal-header">
+                <span class="soal-number">Soal 4</span>
+                <span class="method-badge">Metode Substitusi</span>
+            </div>
+            <div class="soal-content">
+                Selesaikan sistem persamaan berikut dengan metode substitusi:
+                <div class="persamaan">
+                    y = 2x - 3<br>
+                    3x + 2y = 16
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Nilai x:</label>
+                <input type="number" class="answer-input" id="answer4x" placeholder="Masukkan nilai x">
+            </div>
+            <div class="input-group">
+                <label>Nilai y:</label>
+                <input type="number" class="answer-input" id="answer4y" placeholder="Masukkan nilai y">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkAnswer(4)">Cek Jawaban</button>
+                <button class="btn-hint" onclick="showHint(4)">Lihat Petunjuk</button>
+            </div>
+            <div class="result" id="result4"></div>
+            <div class="hint" id="hint4">
+                <strong>Petunjuk:</strong><br>
+                1. Persamaan pertama sudah dalam bentuk y = ...<br>
+                2. Substitusikan y = 2x - 3 ke persamaan kedua<br>
+                3. Selesaikan untuk x, lalu hitung y
+            </div>
+        </div>
+
+        <!-- Soal 5 -->
+        <div class="soal-card">
+            <div class="soal-header">
+                <span class="soal-number">Soal 5</span>
+                <span class="method-badge">Metode Grafik</span>
+            </div>
+            <div class="soal-content">
+                Tentukan titik potong (solusi) dari grafik kedua persamaan berikut:
+                <div class="persamaan">
+                    x + y = 6<br>
+                    2x - y = 3
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Nilai x:</label>
+                <input type="number" class="answer-input" id="answer5x" placeholder="Masukkan nilai x">
+            </div>
+            <div class="input-group">
+                <label>Nilai y:</label>
+                <input type="number" class="answer-input" id="answer5y" placeholder="Masukkan nilai y">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkAnswer(5)">Cek Jawaban</button>
+                <button class="btn-hint" onclick="showHint(5)">Lihat Petunjuk</button>
+            </div>
+            <div class="result" id="result5"></div>
+            <div class="hint" id="hint5">
+                <strong>Petunjuk:</strong><br>
+                1. Ubah kedua persamaan ke bentuk y = mx + c<br>
+                2. Persamaan 1: y = 6 - x<br>
+                3. Persamaan 2: y = 2x - 3<br>
+                4. Titik potong adalah solusi dari sistem persamaan
+            </div>
+        </div>
+
+        <div class="score-container" id="scoreContainer" style="display: none;">
+            Skor Anda: <span id="score">0</span>/5
+        </div>
+    </div>
+
+    <script>
+        const answers = {
+            1: { x: 1.5, y: 3 },
+            2: { x: 2, y: 3 },
+            3: { x: 2, y: 3 },
+            4: { x: 4, y: 5 },
+            5: { x: 3, y: 3 }
+        };
+
+        let correctCount = 0;
+        const checkedQuestions = new Set();
+
+        function checkAnswer(questionNum) {
+            const xInput = document.getElementById(`answer${questionNum}x`).value;
+            const yInput = document.getElementById(`answer${questionNum}y`).value;
+            const resultDiv = document.getElementById(`result${questionNum}`);
+
+            const userX = parseFloat(xInput);
+            const userY = parseFloat(yInput);
+            const correctX = answers[questionNum].x;
+            const correctY = answers[questionNum].y;
+
+            if (xInput === '' || yInput === '') {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = '❌ Mohon isi kedua nilai x dan y!';
+                return;
+            }
+
+            const isCorrect = Math.abs(userX - correctX) < 0.01 && Math.abs(userY - correctY) < 0.01;
+
+            if (isCorrect) {
+                resultDiv.className = 'result correct';
+                resultDiv.textContent = `✅ Benar! Jawaban: x = ${correctX}, y = ${correctY}`;
+                
+                if (!checkedQuestions.has(questionNum)) {
+                    correctCount++;
+                    checkedQuestions.add(questionNum);
+                    updateScore();
+                }
+            } else {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = `❌ Belum tepat. Coba periksa kembali perhitungan Anda!`;
+            }
+        }
+
+        function showHint(questionNum) {
+            const hintDiv = document.getElementById(`hint${questionNum}`);
+            hintDiv.classList.toggle('show');
+        }
+
+        function updateScore() {
+            const scoreContainer = document.getElementById('scoreContainer');
+            const scoreSpan = document.getElementById('score');
+            scoreSpan.textContent = correctCount;
+            scoreContainer.style.display = 'block';
+            
+            if (correctCount === 5) {
+                scoreContainer.innerHTML = `🎉 Sempurna! Skor Anda: ${correctCount}/5 🎉<br><small style="font-size: 0.6em;">Anda menguasai SPLDV dengan baik!</small>`;
+            }
+        }
+    </script>
+</body>
+</html>
