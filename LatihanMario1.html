@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Soal Matematika SMP Kelas 9</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #764ba2;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .info {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .progress {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .question-topic {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .formula {
+            background: #fff;
+            padding: 10px 15px;
+            border-left: 4px solid #667eea;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            color: #444;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #e8edff;
+        }
+
+        .option.correct {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .score-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .score-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #4caf50;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #f44336;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .question-text {
+                font-size: 16px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📐 Latihan Soal Matematika</h1>
+        <div class="subtitle">SMP Kelas 9</div>
+        <div class="info">SPLDV (Substitusi, Eliminasi, Grafik) & Bangun Ruang</div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div id="quizContainer">
+            <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number" id="questionNumber"></div>
+                    <div class="question-topic" id="questionTopic"></div>
+                </div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+                <div id="feedback" class="feedback hidden"></div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn-secondary" id="prevBtn" onclick="prevQuestion()">◀ Sebelumnya</button>
+                <button class="btn-primary" id="checkBtn" onclick="checkAnswer()">Cek Jawaban</button>
+                <button class="btn-primary hidden" id="nextBtn" onclick="nextQuestion()">Selanjutnya ▶</button>
+                <button class="btn-primary hidden" id="finishBtn" onclick="finishQuiz()">Selesai</button>
+            </div>
+        </div>
+
+        <div id="resultContainer" class="result hidden">
+            <h2>🎉 Quiz Selesai!</h2>
+            <div class="score" id="finalScore"></div>
+            <p id="resultMessage"></p>
+            
+            <div class="score-breakdown">
+                <div class="score-item">
+                    <div class="score-label">📊 SPLDV - Substitusi</div>
+                    <div class="score-value" id="scoreSubstitusi"></div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">🔄 SPLDV - Eliminasi</div>
+                    <div class="score-value" id="scoreEliminasi"></div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">📈 SPLDV - Grafik</div>
+                    <div class="score-value" id="scoreGrafik"></div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">🧊 Bangun Ruang</div>
+                    <div class="score-value" id="scoreBangunRuang"></div>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="restartQuiz()" style="margin-top: 20px;">🔄 Ulangi Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // SPLDV - Metode Substitusi (5 soal)
+            {
+                topic: "Substitusi",
+                question: "Selesaikan sistem persamaan berikut dengan metode substitusi:\nx + y = 10\nx = 2y + 1",
+                options: [
+                    "x = 7, y = 3",
+                    "x = 5, y = 5",
+                    "x = 6, y = 4",
+                    "x = 8, y = 2"
+                ],
+                correct: 0,
+                explanation: "Substitusi x = 2y + 1 ke persamaan pertama: (2y + 1) + y = 10 → 3y = 9 → y = 3, maka x = 7"
+            },
+            {
+                topic: "Substitusi",
+                question: "Tentukan nilai x dan y dari:\n2x + y = 12\ny = x - 3",
+                options: [
+                    "x = 3, y = 6",
+                    "x = 4, y = 4",
+                    "x = 5, y = 2",
+                    "x = 6, y = 0"
+                ],
+                correct: 2,
+                explanation: "Substitusi y = x - 3 ke persamaan pertama: 2x + (x - 3) = 12 → 3x = 15 → x = 5, y = 2"
+            },
+            {
+                topic: "Substitusi",
+                question: "Harga 3 buku dan 2 pensil adalah Rp 27.000. Jika harga 1 pensil adalah Rp 3.000, berapakah harga 1 buku?",
+                options: [
+                    "Rp 5.000",
+                    "Rp 6.000",
+                    "Rp 7.000",
+                    "Rp 8.000"
+                ],
+                correct: 2,
+                explanation: "3b + 2p = 27.000, p = 3.000. Substitusi: 3b + 2(3.000) = 27.000 → 3b = 21.000 → b = 7.000"
+            },
+            {
+                topic: "Substitusi",
+                question: "Selesaikan:\nx - 2y = 4\nx = 3y - 1",
+                options: [
+                    "x = 5, y = 2",
+                    "x = 8, y = 3",
+                    "x = 11, y = 4",
+                    "x = 14, y = 5"
+                ],
+                correct: 2,
+                explanation: "Substitusi x = 3y - 1: (3y - 1) - 2y = 4 → y = 5, maka x = 3(4) - 1 = 11"
+            },
+            {
+                topic: "Substitusi",
+                question: "Diketahui 2x + 3y = 16 dan x = y + 1. Nilai x + y adalah...",
+                options: [
+                    "5",
+                    "6",
+                    "7",
+                    "8"
+                ],
+                correct: 2,
+                explanation: "Substitusi x = y + 1: 2(y + 1) + 3y = 16 → 5y = 14 → y = 2.8, x = 3.8, x + y ≈ 7"
+            },
+            
+            // SPLDV - Metode Eliminasi (5 soal)
+            {
+                topic: "Eliminasi",
+                question: "Gunakan metode eliminasi untuk menyelesaikan:\n3x + 2y = 16\n2x + 2y = 12",
+                options: [
+                    "x = 2, y = 4",
+                    "x = 4, y = 2",
+                    "x = 3, y = 3",
+                    "x = 5, y = 1"
+                ],
+                correct: 1,
+                explanation: "Kurangkan persamaan: (3x + 2y) - (2x + 2y) = 16 - 12 → x = 4, substitusi: 2(4) + 2y = 12 → y = 2"
+            },
+            {
+                topic: "Eliminasi",
+                question: "Selesaikan dengan eliminasi:\n4x + 3y = 26\n4x - y = 14",
+                options: [
+                    "x = 4, y = 2",
+                    "x = 5, y = 2",
+                    "x = 4, y = 3",
+                    "x = 3, y = 4"
+                ],
+                correct: 2,
+                explanation: "Kurangkan: (4x + 3y) - (4x - y) = 26 - 14 → 4y = 12 → y = 3, maka x = 4"
+            },
+            {
+                topic: "Eliminasi",
+                question: "Tentukan nilai y dari:\n5x + 2y = 24\n3x + 2y = 16",
+                options: [
+                    "y = 2",
+                    "y = 3",
+                    "y = 4",
+                    "y = 5"
+                ],
+                correct: 0,
+                explanation: "Kurangkan: (5x + 2y) - (3x + 2y) = 24 - 16 → 2x = 8 → x = 4, substitusi: 5(4) + 2y = 24 → y = 2"
+            },
+            {
+                topic: "Eliminasi",
+                question: "Selisih dua bilangan adalah 6 dan jumlahnya adalah 18. Bilangan yang lebih besar adalah...",
+                options: [
+                    "10",
+                    "11",
+                    "12",
+                    "14"
+                ],
+                correct: 2,
+                explanation: "x - y = 6 dan x + y = 18. Eliminasi: 2x = 24 → x = 12"
+            },
+            {
+                topic: "Eliminasi",
+                question: "Gunakan eliminasi:\n2x + 5y = 19\n3x - 5y = 6",
+                options: [
+                    "x = 5, y = 2",
+                    "x = 4, y = 3",
+                    "x = 5, y = 1.8",
+                    "x = 3, y = 2"
+                ],
+                correct: 2,
+                explanation: "Jumlahkan: (2x + 5y) + (3x - 5y) = 19 + 6 → 5x = 25 → x = 5, y = 1.8"
+            },
+
+            // SPLDV - Metode Grafik (5 soal)
+            {
+                topic: "Grafik",
+                question: "Titik potong garis x + y = 6 dengan sumbu X adalah...",
+                options: [
+                    "(6, 0)",
+                    "(0, 6)",
+                    "(3, 3)",
+                    "(2, 4)"
+                ],
+                correct: 0,
+                explanation: "Pada sumbu X, y = 0. Maka x + 0 = 6 → x = 6. Titik potong (6, 0)"
+            },
+            {
+                topic: "Grafik",
+                question: "Titik potong garis 2x + 3y = 12 dengan sumbu Y adalah...",
+                options: [
+                    "(0, 4)",
+                    "(4, 0)",
+                    "(0, 6)",
+                    "(6, 0)"
+                ],
+                correct: 0,
+                explanation: "Pada sumbu Y, x = 0. Maka 2(0) + 3y = 12 → y = 4. Titik potong (0, 4)"
+            },
+            {
+                topic: "Grafik",
+                question: "Gradien garis yang melalui titik (2, 3) dan (6, 11) adalah...",
+                options: [
+                    "1",
+                    "2",
+                    "3",
+                    "4"
+                ],
+                correct: 1,
+                explanation: "m = (y₂ - y₁)/(x₂ - x₁) = (11 - 3)/(6 - 2) = 8/4 = 2"
+            },
+            {
+                topic: "Grafik",
+                question: "Persamaan garis yang melalui titik (0, 3) dengan gradien 2 adalah...",
+                options: [
+                    "y = 2x + 3",
+                    "y = 3x + 2",
+                    "y = 2x - 3",
+                    "y = x + 3"
+                ],
+                correct: 0,
+                explanation: "y = mx + c, dengan m = 2 dan c = 3 (titik potong sumbu Y), maka y = 2x + 3"
+            },
+            {
+                topic: "Grafik",
+                question: "Dua garis y = 2x + 1 dan y = 2x - 3 adalah...",
+                options: [
+                    "Berpotongan di satu titik",
+                    "Sejajar",
+                    "Berimpit",
+                    "Tegak lurus"
+                ],
+                correct: 1,
+                explanation: "Kedua garis memiliki gradien sama (m = 2) tetapi konstanta berbeda, maka garis sejajar"
+            },
+
+            // Bangun Ruang - Volume dan Luas Permukaan (5 soal)
+            {
+                topic: "Bangun Ruang",
+                question: "Sebuah kubus memiliki panjang rusuk 6 cm. Volume kubus tersebut adalah...",
+                options: [
+                    "36 cm³",
+                    "72 cm³",
+                    "108 cm³",
+                    "216 cm³"
+                ],
+                correct: 3,
+                explanation: "V = s³ = 6³ = 216 cm³"
+            },
+            {
+                topic: "Bangun Ruang",
+                question: "Luas permukaan kubus dengan rusuk 5 cm adalah...",
+                options: [
+                    "100 cm²",
+                    "125 cm²",
+                    "150 cm²",
+                    "200 cm²"
+                ],
+                correct: 2,
+                explanation: "L = 6s² = 6 × 5² = 6 × 25 = 150 cm²"
+            },
+            {
+                topic: "Bangun Ruang",
+                question: "Volume balok dengan panjang 10 cm, lebar 6 cm, dan tinggi 4 cm adalah...",
+                options: [
+                    "180 cm³",
+                    "200 cm³",
+                    "240 cm³",
+                    "260 cm³"
+                ],
+                correct: 2,
+                explanation: "V = p × l × t = 10 × 6 × 4 = 240 cm³"
+            },
+            {
+                topic: "Bangun Ruang",
+                question: "Sebuah tabung memiliki jari-jari 7 cm dan tinggi 10 cm. Volume tabung tersebut adalah... (π = 22/7)",
+                options: [
+                    "1.540 cm³",
+                    "1.650 cm³",
+                    "1.760 cm³",
+                    "1.870 cm³"
+                ],
+                correct: 0,
+                explanation: "V = πr²t = 22/7 × 7² × 10 = 22/7 × 49 × 10 = 1.540 cm³"
+            },
+            {
+                topic: "Bangun Ruang",
+                question: "Luas permukaan bola dengan jari-jari 7 cm adalah... (π = 22/7)",
+                options: [
+                    "308 cm²",
+                    "462 cm²",
+                    "616 cm²",
+                    "924 cm²"
+                ],
+                correct: 2,
+                explanation: "L = 4πr² = 4 × 22/7 × 7² = 4 × 22/7 × 49 = 616 cm²"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('questionNumber').textContent = `Soal ${currentQuestion + 1} dari ${questions.length}`;
+            document.getElementById('questionTopic').textContent = q.topic;
+            document.getElementById('questionText').innerHTML = q.question.replace(/\n/g, '<br>');
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            const labels = ['A', 'B', 'C', 'D'];
+            q.options.forEach((option, index) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.innerHTML = `<span class="option-label">${labels[index]}.</span> ${option}`;
+                div.onclick = () => selectOption(index);
+                if (userAnswers[currentQuestion] === index) {
+                    div.classList.add('selected');
+                }
+                optionsContainer.appendChild(div);
+            });
+
+            updateProgress();
+            updateButtons();
+            document.getElementById('feedback').classList.add('hidden');
+            answered = false;
+        }
+
+        function selectOption(index) {
+            if (answered) return;
+            
+            userAnswers[currentQuestion] = index;
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected');
+                if (i === index) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
+
+        function checkAnswer() {
+            if (userAnswers[currentQuestion] === undefined) {
+                alert('Pilih jawaban terlebih dahulu!');
+                return;
+            }
+
+            answered = true;
+            const q = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            const feedback = document.getElementById('feedback');
+            
+            options.forEach((opt, i) => {
+                if (i === q.correct) {
+                    opt.classList.add('correct');
+                }
+                if (i === userAnswers[currentQuestion] && i !== q.correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            if (userAnswers[currentQuestion] === q.correct) {
+                feedback.innerHTML = `✓ <strong>Benar!</strong><br>${q.explanation}`;
+                feedback.className = 'feedback correct';
+            } else {
+                const labels = ['A', 'B', 'C', 'D'];
+                feedback.innerHTML = `✗ <strong>Salah.</strong> Jawaban yang benar: ${labels[q.correct]}. ${q.options[q.correct]}<br><br>${q.explanation}`;
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.classList.remove('hidden');
+
+            document.getElementById('checkBtn').classList.add('hidden');
+            if (currentQuestion < questions.length - 1) {
+                document.getElementById('nextBtn').classList.remove('hidden');
+            } else {
+                document.getElementById('finishBtn').classList.remove('hidden');
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('checkBtn').classList.remove('hidden');
+            document.getElementById('nextBtn').classList.add('hidden');
+            document.getElementById('finishBtn').classList.add('hidden');
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function finishQuiz() {
+            score = 0;
+            let scoreByTopic = {
+                'Substitusi': { correct: 0, total: 0 },
+                'Eliminasi': { correct: 0, total: 0 },
+                'Grafik': { correct: 0, total: 0 },
+                'Bangun Ruang': { correct: 0, total: 0 }
+            };
+
+            userAnswers.forEach((answer, index) => {
+                const q = questions[index];
+                scoreByTopic[q.topic].total++;
+                if (answer === q.correct) {
+                    score++;
+                    scoreByTopic[q.topic].correct++;
+                }
+            });
+
+            const percentage = (score / questions.length) * 100;
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('resultContainer').classList.remove('hidden');
+            document.getElementById('finalScore').textContent = `${score} / ${questions.length}`;
+            
+            // Update score breakdown
+            document.getElementById('scoreSubstitusi').textContent = 
+                `${scoreByTopic['Substitusi'].correct}/${scoreByTopic['Substitusi'].total}`;
+            document.getElementById('scoreEliminasi').textContent = 
+                `${scoreByTopic['Eliminasi'].correct}/${scoreByTopic['Eliminasi'].total}`;
+            document.getElementById('scoreGrafik').textContent = 
+                `${scoreByTopic['Grafik'].correct}/${scoreByTopic['Grafik'].total}`;
+            document.getElementById('scoreBangunRuang').textContent = 
+                `${scoreByTopic['Bangun Ruang'].correct}/${scoreByTopic['Bangun Ruang'].total}`;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = '🌟 Luar Biasa! Anda sangat menguasai materi SPLDV dan Bangun Ruang!';
+            } else if (percentage >= 75) {
+                message = '👏 Bagus Sekali! Pemahaman Anda sudah sangat baik!';
+            } else if (percentage >= 60) {
+                message = '👍 Cukup Baik! Terus tingkatkan pemahaman Anda!';
+            } else {
+                message = '💪 Tetap Semangat! Pelajari kembali materi yang kurang dikuasai!';
+            }
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = [];
+            score = 0;
+            answered = false;
+            document.getElementById('quizContainer').classList.remove('hidden');
+            document.getElementById('resultContainer').classList.add('hidden');
+            loadQuestion();
+        }
+
+        // Load first question on page load
+        loadQuestion();
+    </script>
+</body>
+</html>
